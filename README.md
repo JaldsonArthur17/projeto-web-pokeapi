@@ -5,4 +5,4 @@ PROFESSOR: JOSINO NETO
 
 LINGUAGENS USADAS: HTML, CSS, JAVASCRIPT, GIT E GITHUB e POKEAPI
 
-O objetivo desse projeto é desenvolver um projeto Web usando html, css, javascript e a pokeapi p
+O objetivo desse projeto é desenvolver um projeto Web usando html, css, javascript e a pokeapi 
