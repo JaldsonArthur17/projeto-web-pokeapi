@@ -1,7 +1,33 @@
 body {
     background-color: orangered;
 }
-header h1 {
-    text-align: center;
+
+main h1 {
+    position: relative;
     color: white;
+    left: 600px;
+    top: 300px;
+    font-size: 60px;
 }
+
+main img {
+    position: fixed;
+    top: 400px;
+    left: 350px;
+}
+
+main a {
+    color: aqua;
+    position: relative;
+    left: 740px;
+    top: 550px;
+    size: 100px;
+    text-align: center;
+}
+
+main button {
+    width: 100px;
+    height: 30px;
+}
+
+
