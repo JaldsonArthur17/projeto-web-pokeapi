@@ -3,32 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>testando tags semânticas</title>
+    <link rel="icon" href="/proj-pokemon/imagens/LOGO ALTERADA SEM FUNDO.png">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <title>Tela Inicial</title>
 </head>
 <body>
-    
     <header>
-        <h1>testando tags semânticas</h1>
-        <nav>
-            <ul>
-                <li><a href="#">saiba mais</a></li>
-                <li><a href="#">informações</a></li>
-                <li><a href="#">contatos</a></li>
-            </ul>
-        </nav>
+        <h1>Pokedéx</h1>
+        <div class="conteiner-procura">
+            <input type="text" id="pesquisa" placeholder="Busque seu pokémon">
+            <button id="botao_pesquisa">Buscar</button>
+        </div>
+        <button id="botao_favoritar">Mostar pokemóns favoritos</button>
     </header>
 
     <main>
-        <h1>aqui você vai escolher o charizard</h1>
-        <img src="https://th.bing.com/th/id/R.043c8f0d644b92e8f44fce4fa3c74ba8?rik=eiYoegwDnrvYSQ&riu=http%3a%2f%2fvignette4.wikia.nocookie.net%2fpokemon-revolution%2fimages%2fd%2fd1%2fMega_charizard_by_yonaka_pinku-d6l1hrb.png%2frevision%2flatest%3fcb%3d20150712082348&ehk=ps5IUigDsZGlf0cwdoDj2MDgoS7b7tJc8ebFDl6OFQk%3d&risl=&pid=ImgRaw&r=0" alt="">
+        <div id="mensagem_status" class="message">carregando o pokemón...</div>
+
+        <section id="lista_pokemons" class="grid-list"></section>
+
+            <div class="botao_paginacao">
+                <button id="botao_anterior">página anterior</button>
+                <button id="botao_posterior">próxima página</button>
+            </div>
     </main>
 
+    <div id="detalhes_modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Detalhes do pokemón selecionado</h2>
+            <div id="detalhes_pokemon"></div>
+        </div>
+    </div>
 
-    <footer>
-        <p>@2025 todos os direitos reservados</p>
-    </footer>
-
-    <script src="script.js"></script>
+    <script src="/proj-pokemon/js/tela_inicial.js"></script>
+    
 </body>
 </html>
