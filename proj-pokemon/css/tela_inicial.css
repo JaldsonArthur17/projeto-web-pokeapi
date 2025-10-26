@@ -2,31 +2,157 @@ body {
     background-color: orangered;
     margin: 0;
     font-family: 'Luckiest Guy', cursive;
+    padding: 20px;
+    text-align: center;
 }
+
+input[type="text"], button {
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+
+/*CABEÇALHO E NAVETGAÇÃO */
+
+header {
+    background-color: #cc0000;
+    color: white;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
 header h1 {
     text-align: center;
     color: white;
     text-shadow: 
-        -1px -1px 0 #000,  
-        1px -1px 0 #000, 
-        -1px  1px 0 #000,  
-        1px  1px 0 #000;
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000,
 }
-main div {
-    color: white;
-    text-align: center;
-    text-shadow: 
-        -1px -1px 0 #000,  
-        1px -1px 0 #000, 
-        -1px  1px 0 #000,  
-        1px  1px 0 #000;
+
+/* LISTAGEM DO POKEMON */ 
+#lista_pokemons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0;
+    list-style: none;
 }
-div h2 {
+
+.card_pokemon {
+    background-color: white;
+    border: 1px solid cadetblue;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px solid black;
+    transition: all 0.2s;
+    cursor: pointer;
     text-align: center;
+    position: relative;
+}
+
+.card_pokemon:hover {
+    transform: translateY(-5px);
+    box-shadow: 4px 4px 10px solid black;
+}
+
+.card_pokemon img {
+    max-width: 100px;
+    height: auto;
+}
+
+/* BOTÕES */ 
+button:not(#botao_favoritar) {
+    border: none;
+    background-color: blueviolet;
     color: white;
-    text-shadow: 
-        -1px -1px 0 #000,  
-        1px -1px 0 #000, 
-        -1px  1px 0 #000,  
-        1px  1px 0 #000;
+    transition: background-color 0.2s;
+} 
+
+button:hover:not(:disabled):not(#botao_favoritar) {
+    background-color: #0d329f;
+}
+
+#botao_favoritar {
+    background-color: #ffcc00;
+    color: #333;
+    border: 1px solid #e6b800;
+}
+
+button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+.botao_favoritar_card {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #ccc;
+    padding: 0;
+    line-height: 1;
+}
+
+.botao_favoritar_card.is-favorite {
+    color: #ffcc00;
+}
+
+.botao_paginacao {
+    padding: 20px 0;
+}
+
+/* STATUS DAS MENSAGENS */
+
+#mensagem_status {
+    padding: 10px;
+    background: #ffe0b2;
+    color: #e65100;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+/* MODAIS DE DETALHES */
+
+#detalhes_modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    overflow: auto;
+    background-color: #000;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15vh auto;
+    padding: 20px;
+    border: 1px solid black;
+    max-width: 500px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-button:hover,
+.close-button:focus{
+    color: black;
 }
