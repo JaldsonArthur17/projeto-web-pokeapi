@@ -25,6 +25,7 @@ main img {
 
 .container a {
     text-decoration: none;
+    font-family: 'Luckiest Guy', cursive;
 }
 
 .container img {
@@ -35,9 +36,9 @@ main img {
 .container button {
     width: 200px;
     height: 50px;
-    border-radius: 10px;
-    background-color: brown;
-    color: white;
+    border-radius: 20px;
+    background-color: rgb(246, 246, 246);
+    color: rgb(255, 74, 29);
     font-size: 25px;
     border: none;
     cursor: pointer;
