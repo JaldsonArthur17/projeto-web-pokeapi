@@ -1,0 +1,32 @@
+body {
+    background-color: orangered;
+    margin: 0;
+    font-family: 'Luckiest Guy', cursive;
+}
+header h1 {
+    text-align: center;
+    color: white;
+    text-shadow: 
+        -1px -1px 0 #000,  
+        1px -1px 0 #000, 
+        -1px  1px 0 #000,  
+        1px  1px 0 #000;
+}
+main div {
+    color: white;
+    text-align: center;
+    text-shadow: 
+        -1px -1px 0 #000,  
+        1px -1px 0 #000, 
+        -1px  1px 0 #000,  
+        1px  1px 0 #000;
+}
+div h2 {
+    text-align: center;
+    color: white;
+    text-shadow: 
+        -1px -1px 0 #000,  
+        1px -1px 0 #000, 
+        -1px  1px 0 #000,  
+        1px  1px 0 #000;
+}
