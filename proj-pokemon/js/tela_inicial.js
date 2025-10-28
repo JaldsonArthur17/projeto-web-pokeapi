@@ -9,10 +9,10 @@ const input = Document.querySelector('.input_pesquisa')
 const botaoAnterior = document.querySelector('.botao_anterior');
 const botao_posterior = document.querySelector('.botao_posterior');
 
-
+let procurarPokemon = 1;
 
 const fetchPokemon = async (pokemon) => {
-    const apiResposta = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase());
+    const apiResposta = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
 
     if (apiResposta.status == 200) {
 
@@ -36,6 +36,7 @@ const renderPokemon = async (pokemon) => {
         input.value='';
 
     } else {
+        PokeImagem.style.display = 'none';
         PokeNome.innerHTML = "Não encontrado."
         PokeNumero.innerHTML = '';
     }
@@ -48,5 +49,15 @@ form.addEventListener('submit', (Event) => {
 
 });
 
+botaoAnterior.addEventListener('click', () => {
+    alert('botão clicado');
 
-renderPokemon('1');
+});
+
+botao_posterior.addEventListener('clic', () => {
+    alert('botão clicado');
+
+});
+
+
+renderPokemon(procurarPokemon);
