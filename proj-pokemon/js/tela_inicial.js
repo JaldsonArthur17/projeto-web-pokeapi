@@ -50,11 +50,14 @@ form.addEventListener('submit', (Event) => {
 });
 
 botaoAnterior.addEventListener('click', () => {
+    procurarPokemon -= 1;
+    renderPokemon(procurarPokemon);
     alert('botão clicado');
-
 });
 
 botao_posterior.addEventListener('clic', () => {
+    procurarPokemon += 1;
+    renderPokemon(procurarPokemon);
     alert('botão clicado');
 
 });
