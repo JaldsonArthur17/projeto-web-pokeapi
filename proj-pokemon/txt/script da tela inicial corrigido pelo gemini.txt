@@ -1,0 +1,320 @@
+document.addEventListener('DOMContentLoaded', () => {
+
+    //lista
+    const pokemonListElement = document.getElementById('lista_pokemons');
+
+    //busca
+    const searchInput = document.getElementById('pesquisa');
+    const searchButton = document.getElementById('botao_pesquisa');
+
+    //botao de filtragem e favoritos
+    const favoriteFilterButton = document.getElementById('botao_favoritar');
+
+    //mensagem de status
+    const statusMessage = document.getElementById('mensagem_status');
+
+    //botões de paginção
+    const prevButton = document.getElementById('botao_anterior');
+    const nextButton = document.getElementById('botao_posterior');
+
+    //modais de detalhes
+    const detailsModal = document.getElementById('detalhes_modal');
+    const pokemonDetailsElement = document.getElementById('detalhes_pokemon');
+    
+    // CORREÇÃO 1: Seleção do botão de fechar (mantida)
+    const closeButton = document.querySelector('.close-button');
+
+    //variaveis de estado
+    [cite_start]// <-- CORREÇÃO 2: Endpoint base correto (como no PDF [cite: 8])
+    const POKEAPI_BASE_URL = 'https://pokeapi.co/api/v2/pokemon';
+    const POKEMON_LIMIT = 20;
+    let currentOffset = 0;
+    let isFilteringFavorites = false; [cite_start]// Controla o Requisito 6 [cite: 16]
+
+    // --- Funções Auxiliares (Requisito 7) ---
+
+    // CORREÇÃO 3: Funções movidas para o escopo principal (mantida)
+    function showMessage(text, type = 'carregando') {
+        statusMessage.textContent = text;
+        statusMessage.style.display = 'block';
+        // (Você pode adicionar classes CSS para 'erro' ou 'nenhum-resultado' aqui)
+    }
+
+    function hideMessage() {
+        statusMessage.style.display = 'none';
+    }
+
+    [cite_start]// --- Funções de Favoritos (Requisito 5) [cite: 15] ---
+    
+    // <-- CORREÇÃO 4: Implementação da lógica de favoritar (localStorage)
+    function getFavorites() {
+        const favorites = localStorage.getItem('pokemonFavorites');
+        return favorites ? JSON.parse(favorites) : [];
+    }
+
+    function saveFavorites(favorites) {
+        localStorage.setItem('pokemonFavorites', JSON.stringify(favorites));
+    }
+
+    function isFavorite(id) {
+        // Converte IDs para número para comparação
+        return getFavorites().map(Number).includes(Number(id));
+    }
+
+    function toggleFavorite(id) {
+        let favorites = getFavorites().map(Number);
+        const numId = Number(id);
+        const index = favorites.indexOf(numId);
+
+        if (index > -1) {
+            favorites.splice(index, 1); // Remove
+        } else {
+            favorites.push(numId); // Adiciona
+        }
+        saveFavorites(favorites);
+
+        // Atualiza a lista se estivermos filtrando favoritos
+        if (isFilteringFavorites) {
+            loadPokemon();
+        }
+    }
+
+
+    // --- Funções Principais de Renderização ---
+
+    /**
+     * Busca os detalhes de um Pokémon específico (necessário para os cards e o modal)
+     * (Requisito 4) [cite_start][cite: 10]
+     */
+    async function fetchPokemonDetails(urlOrName) {
+        const url = `${POKEAPI_BASE_URL}/${urlOrName}`;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Pokémon não encontrado.');
+            const data = await response.json();
+            
+            [cite_start]// Retorna os dados necessários para o Req 4 [cite: 10, 11, 12, 13, 14]
+            return {
+                id: data.id,
+                name: data.name,
+                image: data.sprites.front_default || 'url_imagem_padrao.png',
+                types: data.types.map(typeInfo => typeInfo.type.name),
+                height: data.height / 10, // Convertendo para metros
+                weight: data.weight / 10, // Convertendo para kg
+            };
+        } catch (error) {
+            console.error('Erro ao buscar detalhes:', error);
+            [cite_start]// Requisito 7 [cite: 17]
+            showMessage('Pokémon não encontrado. Verifique o nome.', 'erro');
+            return null;
+        }
+    }
+
+    /**
+     * Cria o HTML de um card de Pokémon e o adiciona à lista
+     */
+    function renderPokemonCard(pokemon) {
+        const fav = isFavorite(pokemon.id);
+        
+        const card = document.createElement('div');
+        card.className = 'card_pokemon';
+        card.dataset.id = pokemon.id; // Para o clique (Req 4)
+        
+        card.innerHTML = `
+            <button class="botao_favoritar_card ${fav ? 'is-favorite' : ''}" data-id="${pokemon.id}">
+                ${fav ? '❤️' : '🤍'}
+            </button>
+            <img src="${pokemon.image}" alt="${pokemon.name}">
+            <h3>#${pokemon.id} - ${pokemon.name.toUpperCase()}</h3>
+            <p>Tipo: ${pokemon.types.join(', ')}</p>
+        `;
+        pokemonListElement.appendChild(card);
+    }
+
+    /**
+     * [cite_start]Mostra os detalhes do Pokémon no modal (Requisito 4) [cite: 10, 11, 12, 13, 14]
+     */
+    async function showPokemonDetails(id) {
+        const pokemon = await fetchPokemonDetails(id);
+        if (pokemon) {
+            pokemonDetailsElement.innerHTML = `
+                <img src="${pokemon.image}" alt="${pokemon.name}">
+                <p><strong>Nome:</strong> ${pokemon.name.toUpperCase()}</p>
+                <p><strong>ID:</strong> #${pokemon.id}</p>
+                <p><strong>Tipo(s):</strong> ${pokemon.types.join(', ')}</p>
+                <p><strong>Altura:</strong> ${pokemon.height} m</p>
+                <p><strong>Peso:</strong> ${pokemon.weight} kg</p>
+            `;
+            detailsModal.style.display = 'block';
+        }
+    }
+
+    /**
+     * Função principal para carregar a lista de Pokémon
+     * [cite_start](Requisito 1 [cite: 7][cite_start], Requisito 2 [cite: 8][cite_start], Requisito 6 [cite: 16][cite_start], Requisito 7 [cite: 17])
+     */
+    async function loadPokemon () {
+        pokemonListElement.innerHTML = '';
+        showMessage('Carregando Pokémon...'); [cite_start]// Requisito 7 [cite: 17]
+        
+        try {
+            // <-- CORREÇÃO 5: Lógica de fetch implementada (Req 1, 2, 6)
+            
+            if (isFilteringFavorites) {
+                [cite_start]// Modo Favoritos (Requisito 6) [cite: 16]
+                const favorites = getFavorites();
+                prevButton.disabled = true;
+                nextButton.disabled = true;
+
+                if (favorites.length === 0) {
+                    showMessage('Nenhum Pokémon favorito encontrado.', 'nenhum-resultado'); [cite_start]// Requisito 7 [cite: 17]
+                    return;
+                }
+                
+                // Busca os detalhes de cada favorito
+                const detailPromises = favorites.map(id => fetchPokemonDetails(id));
+                const pokemons = await Promise.all(detailPromises);
+                pokemons.filter(p => p !== null).forEach(renderPokemonCard);
+
+            } else {
+                [cite_start]// Modo Lista Padrão (Requisito 1) [cite: 7, 8]
+                const url = `${POKEAPI_BASE_URL}?limit=${POKEMON_LIMIT}&offset=${currentOffset}`;
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Falha ao buscar a lista de Pokémon.');
+
+                const data = await response.json();
+
+                // A API principal só retorna nome e URL,
+                // então precisamos buscar detalhes (como imagem e tipo) para cada um.
+                const detailPromises = data.results.map(p => fetchPokemonDetails(p.name));
+                const pokemons = await Promise.all(detailPromises);
+                
+                pokemons.filter(p => p !== null).forEach(renderPokemonCard);
+
+                [cite_start]// Requisito 2: Atualiza estado dos botões [cite: 8]
+                prevButton.disabled = !data.previous;
+                nextButton.disabled = !data.next;
+            }
+            
+            hideMessage();
+
+        } catch (error) {
+            console.error(error);
+            showMessage('Erro ao carregar Pokémon. Tente novamente.', 'erro'); [cite_start]// Requisito 7 [cite: 17]
+        }
+    }
+
+    /**
+     * [cite_start]Função para buscar um Pokémon específico (Requisito 3) [cite: 9]
+     */
+    async function searchPokemon(query) {
+        pokemonListElement.innerHTML = '';
+        showMessage(`Buscando por "${query}"...`); [cite_start]// Requisito 7 [cite: 17]
+        
+        const pokemon = await fetchPokemonDetails(query.toLowerCase());
+        
+        if (pokemon) {
+            renderPokemonCard(pokemon);
+            hideMessage();
+        } 
+        // (A mensagem de 'não encontrado' é tratada dentro do fetchPokemonDetails)
+
+        // Desabilita paginação na busca
+        prevButton.disabled = true;
+        nextButton.disabled = true;
+    }
+
+
+    // --- Event Listeners (CORREÇÃO 6: Movidos para o escopo principal) ---
+
+    [cite_start]// Requisito 2: Navegação [cite: 8]
+    nextButton.addEventListener('click', () => {
+        currentOffset += POKEMON_LIMIT;
+        // CORREÇÃO 7: Chamada mantida
+        loadPokemon();
+    });
+
+    prevButton.addEventListener('click', () => {
+        if (currentOffset >= POKEMON_LIMIT) {
+            currentOffset -= POKEMON_LIMIT;
+            loadPokemon();
+        }
+    });
+
+    [cite_start]// Requisito 3: Busca [cite: 9]
+    searchButton.addEventListener('click', () => {
+        // CORREÇÃO 8: Propriedade '.value' (mantida)
+        const query = searchInput.value.trim();
+        if (query) {
+            // <-- CORREÇÃO 9: Implementada a chamada para a função de busca
+            searchPokemon(query);
+        } else {
+            // Se a busca for limpa, volta à lista normal
+            isFilteringFavorites = false; 
+            currentOffset = 0;
+            loadPokemon();
+        }
+    });
+    // (Listener de 'Enter' na busca)
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            searchButton.click();
+        }
+    });
+
+
+    [cite_start]// Requisito 6: Filtrar Favoritos [cite: 16]
+    favoriteFilterButton.addEventListener('click', () => {
+        // <-- CORREÇÃO 10: Lógica de filtro implementada
+        isFilteringFavorites = !isFilteringFavorites;
+        currentOffset = 0; // Reseta a paginação
+        
+        if (isFilteringFavorites) {
+            favoriteFilterButton.textContent = 'Mostrar Todos';
+        } else {
+            favoriteFilterButton.textContent = 'Mostrar Apenas Favoritos';
+        }
+        
+        loadPokemon();
+    });
+
+    // Requisito 4: Fechar Modal
+    closeButton.addEventListener('click', () => {
+        detailsModal.style.display = 'none';
+    });
+    // (Fechar modal clicando fora)
+    window.addEventListener('click', (e) => {
+        if (e.target === detailsModal) {
+            detailsModal.style.display = 'none';
+        }
+    });
+
+
+    [cite_start]// Requisito 4 (Detalhes) [cite: 10] [cite_start]e 5 (Favoritar) [cite: 15]
+    pokemonListElement.addEventListener('click', (e) => {
+        const card = e.target.closest('.card_pokemon');
+        // CORREÇÃO 11: Método '.closest()' (mantido)
+        const favButton = e.target.closest('.botao_favoritar_card');
+
+        if (favButton) {
+            // <-- CORREÇÃO 12: Lógica de favoritar implementada
+            e.stopPropagation(); // Impede que o modal abra
+            const id = favButton.dataset.id;
+            toggleFavorite(id);
+            
+            // Atualiza a aparência do botão instantaneamente
+            favButton.classList.toggle('is-favorite');
+            favButton.textContent = favButton.classList.contains('is-favorite') ? '❤️' : '🤍';
+
+        } else if (card) {
+            // <-- CORREÇÃO 13: Lógica de detalhes implementada
+            const id = card.dataset.id;
+            showPokemonDetails(id);
+        }
+    });
+
+    // <-- CORREÇÃO 14: Chamada inicial (mantida)
+    [cite_start]// Requisito 1: Listar ao abrir a página [cite: 7]
+    loadPokemon();
+
+});
