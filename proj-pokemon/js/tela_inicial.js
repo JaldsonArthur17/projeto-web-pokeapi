@@ -4,14 +4,13 @@ const PokeNome = Document.querySelector('.Nome_Pokemon')
 const PokeNumero = Document.querySelector('.Numero_Pokemon')
 const PokeImagem = Document.querySelector('.Imagem_Pokemon')
 const PokeForms = Document.querySelector('.Form_Pokemon')
+const input = Document.querySelector('.input_pesquisa')
 
 
 const fetchPokemon = async (pokemon) => {
     const apiResposta = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-
     const data = await apiResposta.json();
-
-    console.log(data);
+    return data;
 }
 
 const renderPokemon = async (pokemon) => {
@@ -25,4 +24,15 @@ const renderPokemon = async (pokemon) => {
     console.log(data);
 
 }
+
+form.addEventListener('submit', (Event) => {
+    Event.preventDefault();
+
+    renderPokemon(input.value);
+
+    input.value = '';
+
+    
+
+});
 
