@@ -1,13 +1,13 @@
 //estrutura do bloco de pesquisa//
 
-const PokeNome = Document.querySelector('.Nome_Pokemon')
-const PokeNumero = Document.querySelector('.Numero_Pokemon')
-const PokeImagem = Document.querySelector('.Imagem_Pokemon')
+const PokeNome = document.querySelector('.Nome_Pokemon')
+const PokeNumero = document.querySelector('.Numero_Pokemon')
+const PokeImagem = document.querySelector('.Imagem_Pokemon')
 
-const PokeForms = Document.querySelector('.Form_Pokemon')
-const input = Document.querySelector('.input_pesquisa')
-const botaoAnterior = Document.querySelector('.botao_anterior');
-const botao_posterior = Document.querySelector('.botao_posterior');
+const PokeForms = document.querySelector('.Form_Pokemon')
+const input = document.querySelector('.input_pesquisa')
+const botaoAnterior = document.querySelector('.botao_anterior');
+const botao_posterior = document.querySelector('.botao_posterior');
 
 let procurarPokemon = 1;
 
