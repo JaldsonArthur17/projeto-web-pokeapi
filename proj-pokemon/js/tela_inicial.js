@@ -8,31 +8,35 @@ const input = Document.querySelector('.input_pesquisa')
 
 
 const fetchPokemon = async (pokemon) => {
-    const apiResposta = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-    const data = await apiResposta.json();
+    const apiResposta = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase());
+
+    if (apiResposta.status == 200) {
+
+        const data = await apiResposta.json();
     return data;
+
+    }
 }
 
 const renderPokemon = async (pokemon) => {
 
     const data = await fetchPokemon(pokemon);
 
-    PokeNome.innerHTML = data.name;
-    PokeNumero.innerHTML = data.id;
-    PokeImagem.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
+    if (data) {
+        PokeNome.innerHTML = data.name;
+        PokeNumero.innerHTML = data.id;
+        PokeImagem.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
 
-    console.log(data);
+        input.value='';
+    }
 
 }
 
 form.addEventListener('submit', (Event) => {
     Event.preventDefault();
+    renderPokemon(input.value.toLowerCase());
 
-    renderPokemon(input.value);
 
-    input.value = '';
-
-    
 
 });
 
