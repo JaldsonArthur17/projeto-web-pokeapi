@@ -34,6 +34,7 @@ const renderPokemon = async (pokemon) => {
         PokeNumero.innerHTML = data.id;
         PokeImagem.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
         input.value='';
+        procurarPokemon = data.id;
 
     } else {
         PokeImagem.style.display = 'none';
@@ -46,12 +47,13 @@ const renderPokemon = async (pokemon) => {
 form.addEventListener('submit', (Event) => {
     Event.preventDefault();
     renderPokemon(input.value.toLowerCase());
-
 });
 
 botaoAnterior.addEventListener('click', () => {
-    procurarPokemon -= 1;
-    renderPokemon(procurarPokemon);
+    if (procurarPokemon > 1) {
+        procurarPokemon -= 1;
+        renderPokemon(procurarPokemon);
+    }
 });
 
 botao_posterior.addEventListener('clic', () => {
