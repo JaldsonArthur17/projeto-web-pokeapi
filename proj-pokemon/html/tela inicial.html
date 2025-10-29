@@ -3,56 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/proj-pokemon/imagens/pokeboola_original-removebg-preview.png">
+    <link rel="icon" href="/imagens/pokeboola_original-removebg-preview.png">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/proj-pokemon/css/tela_inicial.css">
-    <script defer src="/proj-pokemon/js/tela_inicial.js"></script>
+    <link rel="stylesheet" href="/css/tela_inicial.css">
+    <script defer src="/js/tela_inicial.js"></script>
     <title>Pokédex</title>
 </head>
 
 <body>
     <header>
         <h1>Pokédex</h1>
+
+        <form class="Form_Pokemon" id="formBusca">
+            <input
+                type="search"
+                id="pesquisa"
+                class="Pesquisa"
+                placeholder="Nome ou Número"
+                required
+            />
+            <button type="submit" id="botao_buscar" class="Botao_Buscar">Buscar</button>
+        </form>
+
+        <button type="button" id="botao_favoritar" class="Botao_Favoritar">
+            Mostrar Pokémons Favoritos ⭐
+        </button>
     </header>
 
-    <form class="Form_Pokemon">
-        <input
-            type="search"
-            id="pesquisa"
-            class="Pesquisa"
-            placeholder="Nome ou Número"
-            required
-        />
-    </form>
-
-    <div class="dados_pokemon">
-        <h2 class="Nome_Pokemon">Carregando...</h2>
-        <span class="Numero_Pokemon"></span>
-    </div>
-
-    <div class="buttons">
-        <button type="button" id="botao_anterior" class="Botao_Anterior">Pokémon anterior &lt;</button>
-        <button type="button" id="botao_posterior" class="Botao_Posterior">Próximo Pokémon &gt;</button>
-    </div>
-
-    <button type="button" id="botao_favoritar">Mostrar Pokémons Favoritos</button>
-
     <main>
-        <div id="mensagem_status" class="message">Carregando o Pokémon...</div>
+        <div id="mensagem_carregando" class="message hidden">Carregando Pokémons...</div>
+        <div id="mensagem_erro" class="message hidden">Erro ao carregar Pokémons.</div>
+        <div id="mensagem_vazio" class="message hidden">Nenhum resultado encontrado.</div>
 
-        <img 
-            src="https://img.pokemondb.net/artwork/large/pikachu.jpg" 
-            class="Imagem_Pokemon"
-            alt="Pokémon"
-        >
+        <section id="lista_pokemon" class="grid"></section>
+
+        <div class="buttons">
+            <button type="button" id="botao_anterior" class="Botao_Anterior">&lt; Página Anterior</button>
+            <button type="button" id="botao_posterior" class="Botao_Posterior">Próxima Página &gt;</button>
+        </div>
     </main>
 
-    <div id="detalhes_modal" class="modal">
+    <div id="detalhes_modal" class="modal hidden">
         <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Detalhes do Pokémon Selecionado</h2>
+            <span class="close-button" id="fechar_modal">&times;</span>
+            <h2>Detalhes do Pokémon</h2>
             <div id="detalhes_pokemon"></div>
         </div>
     </div>
+
+    <footer>
+        <p>Desenvolvido como projeto Pokédex Web - PokeAPI</p>
+    </footer>
 </body>
 </html>
