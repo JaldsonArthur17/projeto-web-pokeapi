@@ -3,58 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/proj-pokemon/imagens/LOGO ALTERADA SEM FUNDO.png">
+    <link rel="icon" href="/proj-pokemon/imagens/pokeboola_original-removebg-preview.png">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/proj-pokemon/css/tela_inicial.css">
-    <script defer src="/proj-pokemon/js/tela_inicial.js"></script>
+    <script defer src="/js/tela_inicial.js"></script>
 
-    <title>Tela Inicial</title>
+    <title>Pokédex</title>
 </head>
 <body>
     <header>
-        <h1>Pokedéx</h1>
+        <h1>Pokédex</h1>
         <div class="conteiner-procura">
-            <input type="text" id="pesquisa" placeholder="Busque seu pokémon">
+            <input type="text" id="pesquisa" placeholder="Digite seu Pokémon">
             <button id="botao_pesquisa">Buscar</button>
         </div>
-        <button id="botao_favoritar">Mostar pokemóns favoritos</button>
+        <button id="botao_favoritar">Mostar Pokémon Favoritos</button>
     </header>
 
     <main>
-        <div id="mensagem_status" class="message">carregando o pokemón...</div>
+        <div id="mensagem_status" class="message">Carregando o Pokémon...</div>
 
         <section id="lista_pokemons" class="grid-list"></section>
 
             <div class="botao_paginacao">
-                <button id="botao_anterior">pokemón anterior</button>
-                <button id="botao_posterior">próxima pokemón</button>
-                <button id="botao_voltar_pagina" href="/proj-pokemon/html/apresentacao.html">voltar página</button>
-    
+                <button id="botao_anterior">Pokémon Anterior</button>
+                <button id="botao_posterior">Próximo Pokémon</button>
+                <button id="botao_voltar_pagina" href="apresentacao.html">Voltar Página</button>
             </div>
     </main>
 
     <div id="detalhes_modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h2>Detalhes do pokemón selecionado</h2>
+            <h2>Detalhes do Pokémon Selecionado</h2>
             <div id="detalhes_pokemon"></div>
         </div>
     </div>
 
-
-    <!--SESSÃO DE TESTEs-->
-    <h1 class="Dados_Pokemon">
-        <span class="Numero_Pokemon"6></span>
-        <span class="Nome_Pokemon">charizard</span>
-    </h1>
-    <form class="Form_Pokemon">
-        <input 
-            type="pesquisar"
-            class="input_pesquisa"
-            placeholder="name or number"
-            required
-            />
-    </form>
     
 </body>
 </html>
