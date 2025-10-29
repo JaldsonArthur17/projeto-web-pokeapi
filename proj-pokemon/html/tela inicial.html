@@ -7,35 +7,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/proj-pokemon/css/tela_inicial.css">
     <script defer src="/proj-pokemon/js/tela_inicial.js"></script>
-
     <title>Pokédex</title>
 </head>
-<body>
 
+<body>
     <header>
         <h1>Pokédex</h1>
-        </form>
+    </header>
+
+    <form class="Form_Pokemon">
+        <input
+            type="search"
+            id="pesquisa"
+            class="Pesquisa"
+            placeholder="Nome ou Número"
+            required
+        />
+    </form>
+
+    <div class="dados_pokemon">
+        <h2 class="Nome_Pokemon">Carregando...</h2>
+        <span class="Numero_Pokemon"></span>
+    </div>
 
     <div class="buttons">
-        <button class="Botao_Anterior">Pokémon anterior &lt;</button>
-        <button class="Botao_Posterior">Próximo Pokémon &gt;</button>
+        <button type="button" id="botao_anterior" class="Botao_Anterior">Pokémon anterior &lt;</button>
+        <button type="button" id="botao_posterior" class="Botao_Posterior">Próximo Pokémon &gt;</button>
     </div>
-        <button id="botao_favoritar">Mostrar Pokémons Favoritos</button>
-    </header>
+
+    <button type="button" id="botao_favoritar">Mostrar Pokémons Favoritos</button>
 
     <main>
         <div id="mensagem_status" class="message">Carregando o Pokémon...</div>
 
-        <img src="https://img.pokemondb.net/artwork/large/pikachu.jpg" 
+        <img 
+            src="https://img.pokemondb.net/artwork/large/pikachu.jpg" 
             class="Imagem_Pokemon"
-            alt="nome_DO_pokemon">
-
-
-        <section id="lista_pokemons" class="grid-list"></section>
-
-            <div class="botao_paginacao">
-                <a href="/proj-pokemon/html/apresentacao.html"><button>voltar página</button></a>
-            </div>
+            alt="Imagem do Pokémon"
+        >
     </main>
 
     <div id="detalhes_modal" class="modal">
@@ -45,7 +54,5 @@
             <div id="detalhes_pokemon"></div>
         </div>
     </div>
-
-    
 </body>
 </html>
