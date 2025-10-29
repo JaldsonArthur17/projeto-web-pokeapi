@@ -13,56 +13,54 @@ let procurarPokemon = 1;
 
 // Função que busca o Pokémon na API
 const fetchPokemon = async (pokemon) => {
-  const apiResposta = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+const apiResposta = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
 
-  if (apiResposta.status === 200) {
-    const data = await apiResposta.json();
-    return data;
-  }
+if (apiResposta.status === 200) {
+        const data = await apiResposta.json();
+        return data;
+    }
 };
 
 // Função que renderiza o Pokémon na tela
 const renderPokemon = async (pokemon) => {
-  PokeNome.innerHTML = 'Carregando...';
-  PokeNumero.innerHTML = '';
+PokeNome.innerHTML = 'Carregando...';
+PokeNumero.innerHTML = '';
 
-  const data = await fetchPokemon(pokemon);
+const data = await fetchPokemon(pokemon);
 
-  if (data) {
+if (data) {
     PokeImagem.style.display = 'block';
     PokeNome.innerHTML = data.name;
     PokeNumero.innerHTML = data.id;
 
-    // Corrige o nome para o formato do site pokemondb
     const nomeCorrigido = data.name.toLowerCase();
     PokeImagem.src = `https://img.pokemondb.net/artwork/large/${nomeCorrigido}.jpg`;
 
     input.value = '';
     procurarPokemon = data.id;
-  } else {
-    PokeImagem.style.display = 'none';
-    PokeNome.innerHTML = 'Não encontrado.';
-    PokeNumero.innerHTML = '';
-  }
+    } else {
+        PokeImagem.style.display = 'none';
+        PokeNome.innerHTML = 'Não encontrado.';
+        PokeNumero.innerHTML = '';
+    }
 };
 
 // Eventos de pesquisa e navegação
 PokeForms.addEventListener('submit', (event) => {
-  event.preventDefault();
-  renderPokemon(input.value.toLowerCase());
+    event.preventDefault();
+    renderPokemon(input.value.toLowerCase());
 });
 
 botaoAnterior.addEventListener('click', () => {
-  if (procurarPokemon > 1) {
-    procurarPokemon -= 1;
-    renderPokemon(procurarPokemon);
-  }
+    if (procurarPokemon > 1) {
+        procurarPokemon -= 1;
+        renderPokemon(procurarPokemon);
+    }
 });
 
 botao_posterior.addEventListener('click', () => {
-  procurarPokemon += 1;
-  renderPokemon(procurarPokemon);
+procurarPokemon += 1;
+renderPokemon(procurarPokemon);
 });
 
-// Carrega o primeiro Pokémon ao abrir
 renderPokemon(procurarPokemon);
