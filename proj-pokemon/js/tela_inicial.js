@@ -17,13 +17,13 @@ const fetchPokemon = async (pokemon) => {
             const data = await apiResposta.json();
             return data;
         }
-    } catch (erro) {
+    } catch (error) {
         console.error("Erro na requisição:", erro);
         return null;
     }
 };
 
-// Renderiza Pokémon na tela
+// mostrando o pokemon na tela
 const renderPokemon = async (pokemon) => {
     PokeNome.innerHTML = 'Carregando...';
     PokeNumero.innerHTML = '';
