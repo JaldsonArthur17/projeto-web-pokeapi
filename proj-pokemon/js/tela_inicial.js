@@ -5,9 +5,9 @@ const PokeNumero = document.querySelector('.Numero_Pokemon')
 const PokeImagem = document.querySelector('.Imagem_Pokemon')
 
 const PokeForms = document.querySelector('.Form_Pokemon')
-const input = document.querySelector('.input_pesquisa')
-const botaoAnterior = document.querySelector('.botao_anterior');
-const botao_posterior = document.querySelector('.botao_posterior');
+const input = document.querySelector('#pesquisa')
+const botaoAnterior = document.querySelector('#botao_anterior');
+const botao_posterior = document.querySelector('#botao_posterior');
 
 let procurarPokemon = 1;
 
@@ -30,7 +30,7 @@ const renderPokemon = async (pokemon) => {
         PokeImagem.style.display = 'block';
         PokeNome.innerHTML = data.name;
         PokeNumero.innerHTML = data.id;
-        PokeImagem.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
+        PokeImagem.src = `https://img.pokemondb.net/artwork/large/${pokemon}.jpg`;
         input.value='';
         procurarPokemon = data.id;
 
@@ -57,4 +57,5 @@ botao_posterior.addEventListener('click', () => {
     procurarPokemon += 1;
     renderPokemon(procurarPokemon);
 });
+
 renderPokemon(procurarPokemon);

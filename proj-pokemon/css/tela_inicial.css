@@ -1,9 +1,27 @@
-body {
-    background-color:#b41d1d;
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Luckiest Guy', cursive;
-    padding: 20px;
+}
+
+body {
     text-align: center;
+    background: linear-gradient(to bottom, #f60e0e, #ddbd06);
+    min-height: 100vh;
+}
+
+main {
+    display: inline-block;
+    margin-top: 2%;
+    padding: 15px;
+    position: relative;
+}
+
+main img {
+    max-width: 100vh;
+    height: 250px;
+    width: auto;
 }
 
 input[type="text"], button {
@@ -15,18 +33,18 @@ input[type="text"], button {
     cursor: pointer;
 }
 
-
 /*CABEÇALHO E NAVETGAÇÃO */
 
 header {
-    background-color: #1de1cd;
+    background-color: #f60e0e;
     margin-bottom: 20px;
     border-radius: 8px;
     padding: 15px;
+    text-align: center;
 }
 
 header h1 {
-    text-align: center;
+    display: inline-block;
     font-size: 80px;
     color: white;
     text-shadow: 
@@ -70,10 +88,11 @@ header h1 {
 /* BOTÕES */ 
 button:not(#botao_favoritar) {
     border-radius: 10px;
-    border: solid 4px rgb(202, 225, 32);
-    background-color: rgb(0, 0, 0);
+    border: solid 4px rgb(0, 0, 0);
+    background-color: rgb(165, 55, 11);
     color: white;
-    font-family: 'Luckiest Guy', cursive;    font-weight: bold;
+    font-family: 'Luckiest Guy', cursive;
+    font-weight: bold;
     transition: background-color 0.2s;
 } 
 
@@ -82,16 +101,16 @@ button:hover:not(:disabled):not(#botao_favoritar) {
 }
 
 #botao_favoritar {
-    background-color: #eeff00;
+    background-color: #2b8fd2;
     color: #000000;
-    font-family: 'Luckiest Guy', cursive;    font-weight: bold;
-    border: solid 3px #e60000;
+    font-family:'Courier New', cursive;
+    font-weight: bold;
+    border: solid 3px #f5f5f5;
     border-radius: 10px;
     box-shadow: 3px 3px;
 }
 
 button:disabled {
-    background-color: #aaa;
     cursor: not-allowed;
 }
 
@@ -162,3 +181,5 @@ button:disabled {
 .close-button:focus{
     color: black;
 }
+
+

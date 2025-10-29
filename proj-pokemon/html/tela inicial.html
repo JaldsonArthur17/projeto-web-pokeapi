@@ -6,29 +6,35 @@
     <link rel="icon" href="/proj-pokemon/imagens/pokeboola_original-removebg-preview.png">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/proj-pokemon/css/tela_inicial.css">
-    <script defer src="/js/tela_inicial.js"></script>
+    <script defer src="/proj-pokemon/js/tela_inicial.js"></script>
 
     <title>Pokédex</title>
 </head>
 <body>
+
     <header>
         <h1>Pokédex</h1>
-        <div class="conteiner-procura">
-            <input type="text" id="pesquisa" placeholder="Digite seu Pokémon">
-            <button id="botao_pesquisa">Buscar</button>
-        </div>
-        <button id="botao_favoritar">Mostar Pokémon Favoritos</button>
+        </form>
+
+    <div class="buttons">
+        <button class="Botao_Anterior">Pokémon anterior &lt;</button>
+        <button class="Botao_Posterior">Próximo Pokémon &gt;</button>
+    </div>
+        <button id="botao_favoritar">Mostrar Pokémons Favoritos</button>
     </header>
 
     <main>
         <div id="mensagem_status" class="message">Carregando o Pokémon...</div>
 
+        <img src="https://img.pokemondb.net/artwork/large/pikachu.jpg" 
+            class="Imagem_Pokemon"
+            alt="nome_DO_pokemon">
+
+
         <section id="lista_pokemons" class="grid-list"></section>
 
             <div class="botao_paginacao">
-                <button id="botao_anterior">Pokémon Anterior</button>
-                <button id="botao_posterior">Próximo Pokémon</button>
-                <button id="botao_voltar_pagina" href="apresentacao.html">Voltar Página</button>
+                <a href="/proj-pokemon/html/apresentacao.html"><button>voltar página</button></a>
             </div>
     </main>
 
