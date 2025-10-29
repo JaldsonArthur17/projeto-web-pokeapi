@@ -1,4 +1,3 @@
-
 const listaPokemon = document.querySelector('#lista_pokemon');
 const formBusca = document.querySelector('#formBusca');
 const inputBusca = document.querySelector('#pesquisa');
