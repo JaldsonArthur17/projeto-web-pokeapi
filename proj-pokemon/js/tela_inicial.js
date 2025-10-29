@@ -34,6 +34,7 @@ async function carregarPokemons() {
     }
 }
 
+//aqui começa a chamar todos os pokemons dentro de um lote com 20 pra serem exibidos em tela// 
 function renderizarLista(pokemons) {
     esconderMensagens();
     listaPokemon.innerHTML = '';
@@ -43,6 +44,7 @@ function renderizarLista(pokemons) {
         return;
     }
 
+    //aqui inicia a geração dos cards de cada pokemon dentro do lote//
     pokemons.forEach(p => {
         const card = document.createElement('div');
         card.classList.add('card');
@@ -100,6 +102,7 @@ formBusca.addEventListener('submit', async (e) => {
         mostrarMensagem('vazio');
     }
 });
+
 
 botaoPosterior.addEventListener('click', () => {
     if (!mostrandoFavoritos) {
