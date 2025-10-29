@@ -5,13 +5,13 @@ const PokeNumero = document.querySelector('.Numero_Pokemon');
 const PokeImagem = document.querySelector('.Imagem_Pokemon');
 
 const PokeForms = document.querySelector('.Form_Pokemon');
-const input = document.querySelector('#pesquisa'); // no HTML o input tem id="pesquisa"
+const input = document.querySelector('#pesquisa');
 const botaoAnterior = document.querySelector('#botao_anterior');
 const botao_posterior = document.querySelector('#botao_posterior');
 
 let procurarPokemon = 1;
 
-// Função que busca o Pokémon na API
+// buscando o pokemon na API
 const fetchPokemon = async (pokemon) => {
 const apiResposta = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
 
@@ -20,8 +20,6 @@ if (apiResposta.status === 200) {
         return data;
     }
 };
-
-// Função que renderiza o Pokémon na tela
 const renderPokemon = async (pokemon) => {
 PokeNome.innerHTML = 'Carregando...';
 PokeNumero.innerHTML = '';
