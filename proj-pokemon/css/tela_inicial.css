@@ -241,11 +241,6 @@ button#botao_posterior:hover {
     transform: scale(1.2);
 }
 
-@keyframes aparecer {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
-
 @media (max-width: 600px) {
     header h1 {
         font-size: 48px;
